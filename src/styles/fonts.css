@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'Arpona';
+  src: url('../fonts/arpona-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arpona';
+  src: url('../fonts/arpona-medium.otf') format('opentype');
+  font-style: medium;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Arpona';
+  src: url('../fonts/arpona-bold.otf') format('opentype');
+  font-style: bold;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Arpona';
+  src: url('../fonts/arpona-light.otf') format('opentype');
+  font-style: light;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Arpona';
+  src: url('../fonts/arpona-black.otf') format('opentype');
+  font-style: bold;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'Arpona';
+  src: url('../fonts/arpona-semibold.otf') format('opentype');
+  font-style: medium;
+  font-weight: 600;
+}
+

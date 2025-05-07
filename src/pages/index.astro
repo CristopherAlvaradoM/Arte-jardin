@@ -1,11 +1,68 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Navbar from "../components/Navbar.astro";
+import Layout from "../layouts/Layout.astro";
+import ServiciosCard from "../components/ServiciosCard.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const serviciosCardsInfo = await getCollection("serviciosCards");
 ---
 
 <Layout>
-	<Welcome />
+  <Navbar />
+
+  <header
+    class="relative h-screen flex flex-col items-center justify-center text-white"
+  >
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0">
+      <img
+        src="/index.jpeg"
+        alt="Fondo"
+        class="w-full h-full object-cover brightness-50 pointer-events-none"
+      />
+    </div>
+
+    <!-- Contenido centrado -->
+    <div class="relative z-10 text-center">
+      <h1 class="text-8xl font-medium font-secondary p-16">Arte Jardín</h1>
+      <p class="text-4xl mt-4 max-w-4xl">
+        Espacios vivos que trascienden lo ordinario: <br />arte, naturaleza y
+        armonía en cada rincón.
+      </p>
+    </div>
+  </header>
+  <main>
+    <section class="flex mx-10 flex-col h-full md:flex-row items-center justify-center bg-white min-h-screen p-8">
+      <!-- Contenedor de texto -->
+      <div class="md:w-1/2 text-2xl flex flex-col gap-10 font-medium text-center md:text-left">
+        <h2 class="text-5xl font-medium text-green-900 font-secondary md:self-start w-full">
+          ¿Quiénes somos?
+        </h2>
+        <p class="text-gray-700 mt-4">
+          Transformamos espacios en jardines artísticos y sostenibles que celebran la biodiversidad.  
+          En Arte Jardín fusionamos paisajismo, ecología y diseño para crear entornos únicos que respetan la naturaleza y reflejan tu personalidad.  
+          Descubre cómo podemos transformar tu espacio.           
+        </p>
+      </div>
+      <!-- Contenedor de imagen -->
+      <div class="md:w-1/2 flex w-full h-full">
+        <img src="inicioo.jpg" alt="Jardín moderno" class="rounded-lg w-full h-full object-cover" />
+      </div>
+    </section>
+    <hr class="border-t-2 border-black my-4 mx-10">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 p-8 items-stretch">
+      {serviciosCardsInfo.map(infoCard => {
+        const { titulo, imagen, alt } = infoCard.data;
+        const { body: descripcion } = infoCard;
+        return (
+          <ServiciosCard
+            titulo={titulo}
+            descripcion={descripcion}
+            imagen={imagen}
+            alt={alt}
+          />
+        );
+      })}
+    </ul>
+  </main>
 </Layout>

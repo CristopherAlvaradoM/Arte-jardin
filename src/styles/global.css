@@ -1,0 +1,10 @@
+@import "./fonts.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .link-barra {
+    @apply font-normal text-2xl hover:text-gray-300 transition-colors duration-300;
+  }
+}
