@@ -1,10 +1,21 @@
 ---
 const { titulo, descripcion, imagen, alt } = Astro.props;
 ---
-<li class="bg-white w-[83%] rounded-2xl overflow-hidden border border-gray-900 h-full">
-  <img src={imagen} alt={alt} class="w-full h-48 object-cover" loading="lazy" />
-  <div class="p-4 flex flexco">
-    <h3 class="text-xl font-semibold mb-2">{titulo}</h3>
-    <p class="text-sm text-gray-600">{descripcion}</p>
+
+<li class="bg-white max-w-96 rounded-2xl overflow-hidden flex flex-col border border-gray-900 h-[450px]">
+  <!-- Imagen ocupa el 50% -->
+  <img src={imagen} alt={alt} class="w-full h-1/2 object-cover" loading="lazy" />
+
+  <!-- Contenido ocupa el otro 50% -->
+  <div class="h-1/2 p-4 flex flex-col justify-between">
+    <!-- Bloque del título -->
+    <div class="h-[60px] flex items-center justify-center">
+      <h3 class="text-lg font-semibold text-center leading-snug">{titulo}</h3>
+    </div>
+
+    <!-- Bloque del párrafo -->
+    <div class="h-[140px] flex items-center justify-center">
+      <p class="text-sm text-gray-600 text-center line-clamp-8 leading-snug">{descripcion}</p>
+    </div>
   </div>
 </li>
