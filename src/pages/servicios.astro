@@ -1,10 +1,32 @@
 ---
+import Navbar from "../components/Navbar.astro";
 import Layout from "../layouts/Layout.astro";
-
-
 ---
 
 <Layout>
-  <h1>Servicios</h1>
-  <p>Coming soon...</p>
+  <Navbar />
+
+  <header
+    class="relative py-40 flex flex-col items-center justify-center text-white"
+  >
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0">
+      <img
+        src="/nosotros.png"
+        alt="Una roca"
+        class="w-full h-full object-cover brightness-50 pointer-events-none"
+      />
+    </div>
+
+    <!-- Contenido centrado -->
+    <div class="relative z-10 text-center px-4">
+      <h2 class="text-3xl md:text-6xl font-medium font-secondary mb-6 md:p-10">
+        Nuestros servicios
+      </h2>
+      <p class="text-lg md:text-3xl max-w-[1080px]">
+        Desde césped en rollo hasta jardines naturalistas y resilientes, diseñamos paisajes que 
+        fusionan biodiversidad, sostenibilidad y arte.
+      </p>
+    </div>
+  </header>
 </Layout>
