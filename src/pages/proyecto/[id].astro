@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+export function getStaticPaths() {
+  return [
+    { params: { id: "1" } },
+    { params: { id: "2" } },
+    { params: { id: "3" } },
+    { params: { id: "4" } },
+    { params: { id: "5" } },
+  ];
+}
+
+const { id } = Astro.params;
+---
+
+<Layout>
+  <h1 class="text-4xl font-bold text-center mt-10">Proyecto {id}</h1>
+</Layout>
