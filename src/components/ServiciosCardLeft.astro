@@ -1,0 +1,14 @@
+---
+const { titulo, descripcion, imagen, alt } = Astro.props;
+---
+
+<li class="flex flex-col md:flex-row border border-black overflow-hidden bg-white w-full">
+  <div class="md:w-2/5 w-full h-64 md:h-[411px] order-1 md:order-2">
+    <img src={imagen} alt={alt} class="w-full h-full object-cover" loading="lazy" />
+  </div>
+
+  <div class="md:w-3/5 w-full p-6 flex flex-col justify-center text-center md:text-left order-2 md:order-1">
+    <h3 class="text-xl md:text-5xl text-green-900 font-secondary font-medium mb-6 md:mb-8 md:leading-tight">{titulo}</h3>
+    <p class="text-sm md:text-2xl text-gray-700">{descripcion}</p>
+  </div>
+</li>
