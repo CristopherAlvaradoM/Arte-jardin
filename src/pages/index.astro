@@ -61,25 +61,77 @@ const serviciosCardsInfo = await getCollection("serviciosCards");
         />
       </div>
     </section>
-    <hr class="border-t-2 border-black my-4 mx-10" />
-    <h2 class="font-secondary font-medium text-green-900 text-5xl self-center place-self-center my-10">Nuestros servicios</h2>
-    <p class="font-normal text-xl place-self-center self-center text-center pb-10 mx-24">Cada jardín es diseñado considerando las condiciones específicas del sitio y las preferencias estéticas del cliente,
-      creando espacios verdes únicos que celebran la belleza.</p>
-    <ul class="flex flex-wrap justify-center gap-x-14 gap-y-14">
-      {
-        serviciosCardsInfo.map((infoCard) => {
-          const { titulo, imagen, alt } = infoCard.data;
-          const { body: descripcion } = infoCard;
-          return (
-            <ServiciosCard
-              titulo={titulo}
-              descripcion={descripcion}
-              imagen={imagen}
-              alt={alt}
-            />
-          );
-        })
-      }
-    </ul>
+    <section class="pb-10">
+      <hr class="border-t-2 border-black my-4 mx-10" />
+      <h2
+        class="font-secondary font-medium text-green-900 text-5xl self-center place-self-center my-10"
+      >
+        Nuestros servicios
+      </h2>
+      <p
+        class="font-normal text-xl place-self-center self-center text-center pb-10 mx-24"
+      >
+        Cada jardín es diseñado considerando las condiciones específicas del
+        sitio y las preferencias estéticas del cliente, creando espacios verdes
+        únicos que celebran la belleza.
+      </p>
+      <ul class="flex flex-wrap justify-center gap-x-14 gap-y-14">
+        {
+          serviciosCardsInfo.map((infoCard) => {
+            const { titulo, imagen, alt } = infoCard.data;
+            const { body: descripcion } = infoCard;
+            return (
+              <ServiciosCard
+                titulo={titulo}
+                descripcion={descripcion}
+                imagen={imagen}
+                alt={alt}
+              />
+            );
+          })
+        }
+      </ul>
+    </section>
+    <section>
+      <hr class="border-t-2 border-black my-4 mx-10" />
+      <h2
+        class="font-secondary font-medium text-green-900 text-5xl self-center place-self-center my-10"
+      >
+        Proyectos
+      </h2>
+      <p
+        class="font-normal text-xl place-self-center self-center text-center pb-10 mx-24"
+      >
+      Explore nuestra galería de jardines donde el arte y la naturaleza coexisten en perfecta armonía. Cada proyecto demuestra cómo las especies nativas, los elementos artísticos y el diseño sostenible pueden crear espacios extraordinarios.
+      </p>
+      <ul class="flex flex-wrap justify-center gap-x-14 gap-y-14">
+        <li class="bg-white max-w-96 flex flex-col h-[450px]">
+          <!-- Imagen ocupa el 50% -->
+          <img
+            src="/proyecto1.jpg"
+            alt="Proyecto 1"
+            class="w-full h-1/2 object-cover"
+            loading="lazy"
+          />
+
+          <!-- Contenido ocupa el otro 50% -->
+          <div class="h-1/2 p-4 flex flex-col justify-between border-b border-l border-r border-gray-900">
+            <!-- Bloque del título -->
+            <div class="h-[60px] flex items-center justify-center">
+              <h3 class="text-lg font-semibold text-center leading-snug">
+                Proyecto 1
+              </h3>
+            </div>
+
+            <!-- Bloque del párrafo -->
+            <div class="h-[140px] flex items-center justify-center">
+              <p class="text-sm text-gray-600 text-center line-clamp-8 leading-snug">
+                Descripción del proyecto 1.
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
   </main>
 </Layout>
