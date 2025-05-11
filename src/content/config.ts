@@ -7,5 +7,12 @@ const servicios = defineCollection({
   }), 
 });
 
+const clientes = defineCollection({
+  schema: z.object({
+    nombre: z.string(),
+    alt: z.string(),
+    imagen: z.string(),
+  }), 
+});
 
-export const collections = { servicios };
+export const collections = { servicios, clientes };

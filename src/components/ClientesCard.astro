@@ -1,0 +1,47 @@
+---
+const { nombre, descripcion, imagen, alt } = Astro.props;
+---
+
+<div class="flex flex-col overflow-hidden bg-white h-full">
+  <!-- Imagen -->
+  <img
+    src={imagen}
+    alt={alt}
+    loading="lazy"
+    class="w-full h-60 md:h-[420px] object-cover"
+  />
+
+  <div class="border-x border-b border-black flex flex-col justify-between flex-1">
+    <!-- Contenido -->
+    <div class="flex flex-col justify-between gap-4 p-6 md:p-4 flex-1">
+      <!-- Descripción -->
+      <p class="text-gray-700 text-base md:text-xl leading-snug">
+        {descripcion}
+      </p>
+
+      <!-- ícono dentro del texto -->
+      <p class="text-green-900 text-lg md:text-2xl font-semibold leading-tight">
+        <!-- Ícono usuario (inline con texto) -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="size-5 md:size-8 align-text-bottom mr-1 hidden md:inline-block"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
+          />
+        </svg>
+
+        <!-- Guion en móvil -->
+        <span class="inline-block md:hidden text-2xl font-bold mr-1 ">-</span>
+
+        {nombre}
+      </p>
+    </div>
+  </div>
+</div>
