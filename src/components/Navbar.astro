@@ -2,7 +2,10 @@
 
 ---
 
-<nav class="absolute top-0 left-0 w-full p-4 text-white bg-transparent z-20">
+<nav
+  id="main-navbar"
+  class="fixed top-0 left-0 w-full p-4 text-white bg-transparent z-20 transition-all duration-300"
+>
   <div class="container mx-auto flex justify-between items-center">
     <!-- Logo -->
     <a href="/" class="">
@@ -19,9 +22,40 @@
     </ul>
 
     <!-- Botón de contacto -->
-    <a href="/contacto" class="bg-green_tertiary text-lg font-medium text-white px-5 py-2 rounded-full transition-transform duration-300 ease-in-out hover:scale-105">
+    <a
+      href="/contacto"
+      class="bg-green_tertiary text-lg font-medium text-white px-5 py-2 rounded-full transition-transform duration-300 ease-in-out hover:scale-105"
+    >
       Contáctanos
     </a>
-    
   </div>
 </nav>
+
+<script is:inline>
+  if (typeof window !== "undefined") {
+    let lastScrollY = window.scrollY;
+    const navbar = document.getElementById("main-navbar");
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Mostrar u ocultar navbar según dirección
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        navbar.classList.add("-translate-y-full");
+      } else {
+        navbar.classList.remove("-translate-y-full");
+      }
+
+      // Cambiar fondo si no está arriba
+      if (currentScrollY > 10) {
+        navbar.classList.add("bg-black/60", "backdrop-blur-md");
+      } else {
+        navbar.classList.remove("bg-black/60", "backdrop-blur-md");
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+  }
+</script>

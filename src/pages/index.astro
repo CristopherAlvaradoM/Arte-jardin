@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Navbar from "../components/Navbar.astro";
 import Layout from "../layouts/Layout.astro";
 import ServiciosCard from "../components/ServiciosCard.astro";
+import Footer from "../components/Footer.astro";
 
 const serviciosCardsInfo = await getCollection("serviciosCards");
 ---
@@ -40,7 +41,7 @@ const serviciosCardsInfo = await getCollection("serviciosCards");
         class="md:w-1/2 text-2xl flex flex-col gap-10 font-medium text-center md:text-left"
       >
         <h2
-          class="text-5xl font-medium text-green-900 font-secondary md:self-start w-full"
+          class="text-5xl font-medium text-green_primary font-secondary md:self-start w-full"
         >
           ¿Quiénes somos?
         </h2>
@@ -64,12 +65,12 @@ const serviciosCardsInfo = await getCollection("serviciosCards");
     <section class="pb-10">
       <hr class="border-t-2 border-black my-4 mx-10" />
       <h2
-        class="font-secondary font-medium text-green-900 text-5xl self-center place-self-center my-10"
+        class="font-secondary font-medium text-green_primary text-5xl self-center place-self-center my-10"
       >
         Nuestros servicios
       </h2>
       <p
-        class="font-normal text-xl place-self-center self-center text-center pb-10 mx-24"
+        class="text-2xl font-medium text-gray-700 place-self-center self-center text-center pb-10 mx-24"
       >
         Cada jardín es diseñado considerando las condiciones específicas del
         sitio y las preferencias estéticas del cliente, creando espacios verdes
@@ -95,43 +96,39 @@ const serviciosCardsInfo = await getCollection("serviciosCards");
     <section>
       <hr class="border-t-2 border-black my-4 mx-10" />
       <h2
-        class="font-secondary font-medium text-green-900 text-5xl self-center place-self-center my-10"
+        class="font-secondary font-medium text-green_primary text-5xl self-center place-self-center my-10"
       >
         Proyectos
       </h2>
       <p
-        class="font-normal text-xl place-self-center self-center text-center pb-10 mx-24"
+        class="text-2xl font-medium text-gray-700 place-self-center self-center text-center pb-10 mx-24"
       >
-      Explore nuestra galería de jardines donde el arte y la naturaleza coexisten en perfecta armonía. Cada proyecto demuestra cómo las especies nativas, los elementos artísticos y el diseño sostenible pueden crear espacios extraordinarios.
+        Explore nuestra galería de jardines donde el arte y la naturaleza
+        coexisten en perfecta armonía. Cada proyecto demuestra cómo las especies
+        nativas, los elementos artísticos y el diseño sostenible pueden crear
+        espacios extraordinarios.
       </p>
       <ul class="flex flex-wrap justify-center gap-x-14 gap-y-14">
-        <li class="bg-white max-w-96 flex flex-col h-[450px]">
-          <!-- Imagen ocupa el 50% -->
-          <img
-            src="/proyecto1.jpg"
-            alt="Proyecto 1"
-            class="w-full h-1/2 object-cover"
-            loading="lazy"
-          />
-
-          <!-- Contenido ocupa el otro 50% -->
-          <div class="h-1/2 p-4 flex flex-col justify-between border-b border-l border-r border-gray-900">
-            <!-- Bloque del título -->
-            <div class="h-[60px] flex items-center justify-center">
-              <h3 class="text-lg font-semibold text-center leading-snug">
-                Proyecto 1
-              </h3>
+        <li>
+          <div class="flex flex-col">
+            <img src="nosotros1.png" alt="" class="w-[640px] h-[440px] object-cover" />
+            <div class="flex flex-row content-center items-center gap-5 mt-2">
+              <h3 class="text-3xl font-medium font-secondary text-green_tertiary">Nombre del proyecto</h3>
+              <img src="arrow-right.png" alt="Siguiente"/>
             </div>
-
-            <!-- Bloque del párrafo -->
-            <div class="h-[140px] flex items-center justify-center">
-              <p class="text-sm text-gray-600 text-center line-clamp-8 leading-snug">
-                Descripción del proyecto 1.
-              </p>
+          </div>
+        </li>
+        <li>
+          <div class="flex flex-col">
+            <img src="nosotros1.png" alt="" class="lg:w-[640px]  lg:h-[440px] object-cover" />
+            <div class="flex flex-row content-center items-center gap-5 mt-2">
+              <h3 class="text-3xl font-medium font-secondary text-green_tertiary">Nombre del proyecto</h3>
+              <img src="arrow-right.png" class="transition-transform duration-300 ease-in-out hover:translate-x-2" alt="Siguiente"/>
             </div>
           </div>
         </li>
       </ul>
     </section>
   </main>
+  <Footer/>
 </Layout>

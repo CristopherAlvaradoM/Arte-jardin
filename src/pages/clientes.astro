@@ -1,5 +1,6 @@
 ---
 import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
 import Layout from "../layouts/Layout.astro";
 import ClienteCard from "../components/ClientesCard.astro"
 import { getCollection } from "astro:content";
@@ -48,4 +49,5 @@ const clientes = await getCollection("clientes")
     </div>
     <Contactanos/>
   </main>
+  <Footer/>
 </Layout>
