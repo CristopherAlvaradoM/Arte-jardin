@@ -1,18 +1,14 @@
----
-
----
-
 <nav
   id="main-navbar"
   class="fixed top-0 left-0 w-full p-4 text-white bg-transparent z-20 transition-all duration-300"
 >
   <div class="container mx-auto flex justify-between items-center">
     <!-- Logo -->
-    <a href="/" class="">
+    <a href="/">
       <img src="/logo-blanco.png" alt="Logo" class="size-24" />
     </a>
 
-    <!-- Menú -->
+    <!-- Menú en desktop -->
     <ul class="hidden md:flex space-x-10">
       <li><a href="/nosotros" class="link-barra">Nosotros</a></li>
       <li><a href="/servicios" class="link-barra">Servicios</a></li>
@@ -21,32 +17,91 @@
       <li><a href="/blog" class="link-barra">Blog</a></li>
     </ul>
 
-    <!-- Botón de contacto -->
+    <!-- Botón contacto (siempre visible) -->
     <a
       href="/contacto"
-      class="bg-green_tertiary text-lg font-medium text-white px-5 py-2 rounded-full transition-transform duration-300 ease-in-out hover:scale-105"
+      class="hidden md:inline-block bg-green_tertiary text-lg font-medium text-white px-5 py-2 rounded-full transition-transform duration-300 ease-in-out hover:scale-105"
+    >
+      Contáctanos
+    </a>
+
+    <!-- Botón hamburguesa en móvil -->
+    <button
+      id="hamburger-btn"
+      class="md:hidden text-white text-3xl focus:outline-none"
+      aria-label="Abrir menú"
+    >
+      &#9776;
+    </button>
+  </div>
+
+<!-- Menú móvil de pantalla completa -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 bg-green_primary text-white flex flex-col h-screen transform -translate-x-full transition-transform duration-300"
+>
+  <!-- Header con logo y botón cerrar -->
+  <div class="flex justify-between items-center p-4">
+    <img src="/ArteJardin LOGO SIN FONDO-14 1.png" alt="Logo" class="h-32" />
+    <button
+      id="close-btn"
+      class="text-white text-3xl font-medium"
+      aria-label="Cerrar menú"
+    >
+      <img src="/x.png" alt="cerrar ventana">
+    </button>
+  </div>
+  <h3 class="font-secondary space-y-6 px-6 mt-8 text-2xl font-medium">Menú</h3>
+
+  <!-- Lista de enlaces -->
+  <ul class="flex flex-col space-y-6 px-6 mt-8 text-2xl font-normal flex-grow">
+    <li><a href="/nosotros">Nosotros</a></li>
+    <li><a href="/servicios">Servicios</a></li>
+    <li><a href="/proyectos">Proyectos</a></li>
+    <li><a href="/clientes">Clientes</a></li>
+    <li><a href="/blog">Blog</a></li>
+  </ul>
+
+  <!-- Botón al fondo -->
+  <div class="px-6 mb-10">
+    <a
+      href="/contacto"
+      class="block w-full text-center bg-green_tertiary text-white px-4 py-3 rounded-full font-semibold text-xl"
     >
       Contáctanos
     </a>
   </div>
+</div>
 </nav>
 
 <script is:inline>
   if (typeof window !== "undefined") {
-    let lastScrollY = window.scrollY;
     const navbar = document.getElementById("main-navbar");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const hamburgerBtn = document.getElementById("hamburger-btn");
+    const closeBtn = document.getElementById("close-btn");
+
+    // Mostrar/ocultar menú móvil
+    hamburgerBtn.addEventListener("click", () => {
+      mobileMenu.classList.remove("-translate-x-full");
+    });
+
+    closeBtn.addEventListener("click", () => {
+      mobileMenu.classList.add("-translate-x-full");
+    });
+
+    // Ocultar navbar al hacer scroll hacia abajo
+    let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Mostrar u ocultar navbar según dirección
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
         navbar.classList.add("-translate-y-full");
       } else {
         navbar.classList.remove("-translate-y-full");
       }
 
-      // Cambiar fondo si no está arriba
       if (currentScrollY > 10) {
         navbar.classList.add("bg-black/60", "backdrop-blur-md");
       } else {

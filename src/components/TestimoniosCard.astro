@@ -1,0 +1,19 @@
+---
+const { nombre_cliente, testimonio } = Astro.props;
+---
+
+<div class="bg-white_primary p-6 rounded-lg shadow-sm">
+  <p class="text-gray-800 mb-4">
+    {{testimonio}}
+    "¡Increíble trabajo! Contraté a Arte Jardín para transformar mi
+    jardín y quedé maravillado con los resultados. Desde el diseño
+    inicial hasta la ejecución, todo fue impecable. ¡Recomiendo sus
+    servicios al 100%!"
+  </p>
+  <div
+    class="flex items-center gap-2 font-semibold text-green_primary"
+  >
+    <img src="/icon-user.svg" alt="user icon" class="w-5 h-5" />
+  {{nombre_cliente}}
+  </div>
+</div>
