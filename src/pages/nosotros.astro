@@ -3,6 +3,7 @@ import Contactanos from "../components/Contactanos.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import Layout from "../layouts/Layout.astro";
+import WhatsappButton from "../components/WhatsappButton.astro";
 ---
 
 <Layout>
@@ -72,14 +73,13 @@ import Layout from "../layouts/Layout.astro";
       <h2
         class="text-xl md:text-5xl font-medium text-green-900 font-secondary text-center md:leading-snug mb-10"
       >
-        Nuestro compromiso con el medio ambiente se refleja en cada aspecto de
-        nuestro trabajo.
+        Sustentabilidad
       </h2>
 
       <p class="text-sm md:text-2xl text-gray-700 text-justify">
-        Implementamos prácticas sostenibles como el uso de plantas nativas, la
-        selección de materiales ecológicos, la utilización de insumos agrícolas
-        orgánicos y naturales, y el diseño de hábitats para la fauna local.
+        Nuestro compromiso con el medio ambiente se refleja en cada aspecto de
+        nuestro trabajo, en Arte Jardín, la sostenibilidad no es una tendencia,
+        es nuestro principio fundamental.
         <br /><br />
         Nuestro equipo de biólogos y arquitectos paisajistas trabajan en conjunto
         para garantizar proyectos innovadores y sustentables. Los biólogos aportan
@@ -109,9 +109,43 @@ import Layout from "../layouts/Layout.astro";
           class="w-full md:w-1/3 object-cover"
         />
       </div>
+    </section>
+    <section class="px-6 md:px-10 py-8 md:py-16">
+      <hr class="border-t-2 border-black my-4 mx-10" />
 
+      <h2
+        class="text-xl md:text-5xl font-medium text-green-900 font-secondary text-center md:leading-snug mb-10"
+      >
+        Nuestro equipo
+      </h2>
+
+      <p class="text-sm md:text-2xl text-gray-700 text-justify">
+        En Arte Jardín, reunimos expertos apasionados donde la biología se
+        encuentra con el diseño, nuestro equipo reune la experiencia de biologos
+        y arquitectos especializados.
+      </p>
+
+      <!-- Galería de imágenes en fila -->
+      <div
+        class="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-6 mt-10 mb-8 md:mb-16"
+      >
+        <img
+          src="nosotros2.png"
+          alt="una barranca"
+          class="w-full md:w-1/3 object-cover"
+        />
+        <img
+          src="nosotros3.png"
+          alt="Alberca con solecito"
+          class="w-full h-[344px] md:h-[411px] md:w-1/3 object-cover"
+        />
+        <img
+          src="nosotros4.png"
+          alt="Flor morada desenfocada"
+          class="w-full md:w-1/3 object-cover"
+        />
+      </div>
       <Contactanos />
     </section>
   </main>
-  <Footer/>
 </Layout>

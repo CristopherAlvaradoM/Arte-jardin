@@ -1,3 +1,12 @@
+---
+interface Props {
+  phoneNumber: string;
+  message: string;
+}
+
+const { phoneNumber, message } = Astro.props;
+---
+
 <nav
   id="main-navbar"
   class="fixed top-0 left-0 w-full p-4 text-white bg-transparent z-20 transition-all duration-300"
@@ -18,12 +27,12 @@
     </ul>
 
     <!-- Botón contacto (siempre visible) -->
-    <a
-      href="/contacto"
+    <button
+      id="whatsapp-button-nav"
       class="hidden md:inline-block bg-green_tertiary text-lg font-medium text-white px-5 py-2 rounded-full transition-transform duration-300 ease-in-out hover:scale-105"
     >
       Contáctanos
-    </a>
+    </button>
 
     <!-- Botón hamburguesa en móvil -->
     <button
@@ -35,43 +44,47 @@
     </button>
   </div>
 
-<!-- Menú móvil de pantalla completa -->
-<div
-  id="mobile-menu"
-  class="fixed inset-0 z-40 bg-green_primary text-white flex flex-col h-screen transform -translate-x-full transition-transform duration-300"
->
-  <!-- Header con logo y botón cerrar -->
-  <div class="flex justify-between items-center p-4">
-    <img src="/ArteJardin LOGO SIN FONDO-14 1.png" alt="Logo" class="h-32" />
-    <button
-      id="close-btn"
-      class="text-white text-3xl font-medium"
-      aria-label="Cerrar menú"
-    >
-      <img src="/x.png" alt="cerrar ventana">
-    </button>
-  </div>
-  <h3 class="font-secondary space-y-6 px-6 mt-8 text-2xl font-medium">Menú</h3>
+  <!-- Menú móvil de pantalla completa -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-40 bg-green_primary text-white flex flex-col h-screen transform -translate-x-full transition-transform duration-300"
+  >
+    <!-- Header con logo y botón cerrar -->
+    <div class="flex justify-between items-center p-4">
+      <img src="/ArteJardin LOGO SIN FONDO-14 1.png" alt="Logo" class="h-32" />
+      <button
+        id="close-btn"
+        class="text-white text-3xl font-medium"
+        aria-label="Cerrar menú"
+      >
+        <img src="/x.png" alt="cerrar ventana" />
+      </button>
+    </div>
+    <h3 class="font-secondary space-y-6 px-6 mt-8 text-2xl font-medium">
+      Menú
+    </h3>
 
-  <!-- Lista de enlaces -->
-  <ul class="flex flex-col space-y-6 px-6 mt-8 text-2xl font-normal flex-grow">
-    <li><a href="/nosotros">Nosotros</a></li>
-    <li><a href="/servicios">Servicios</a></li>
-    <li><a href="/proyectos">Proyectos</a></li>
-    <li><a href="/clientes">Clientes</a></li>
-    <li><a href="/blog">Blog</a></li>
-  </ul>
-
-  <!-- Botón al fondo -->
-  <div class="px-6 mb-10">
-    <a
-      href="/contacto"
-      class="block w-full text-center bg-green_tertiary text-white px-4 py-3 rounded-full font-semibold text-xl"
+    <!-- Lista de enlaces -->
+    <ul
+      class="flex flex-col space-y-6 px-6 mt-8 text-2xl font-normal flex-grow"
     >
-      Contáctanos
-    </a>
+      <li><a href="/nosotros">Nosotros</a></li>
+      <li><a href="/servicios">Servicios</a></li>
+      <li><a href="/proyectos">Proyectos</a></li>
+      <li><a href="/clientes">Clientes</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+
+    <!-- Botón al fondo -->
+    <div class="px-6 mb-10">
+      <button
+        id="whatsapp-button-nav"
+        class="block w-full text-center bg-green_tertiary text-white px-4 py-3 rounded-full font-semibold text-xl"
+      >
+        Contáctanos
+      </button>
+    </div>
   </div>
-</div>
 </nav>
 
 <script is:inline>
@@ -96,16 +109,24 @@
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
+      // Oculta navbar si haces scroll hacia abajo
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
         navbar.classList.add("-translate-y-full");
       } else {
         navbar.classList.remove("-translate-y-full");
       }
 
+      // Cambia fondo si haces scroll
       if (currentScrollY > 10) {
-        navbar.classList.add("bg-black/60", "backdrop-blur-md");
+        navbar.classList.remove("bg-transparent");
+        navbar.classList.add("bg-black/30", "bg-opacity-80", "backdrop-blur-md");
       } else {
-        navbar.classList.remove("bg-black/60", "backdrop-blur-md");
+        navbar.classList.remove(
+          "bg-black",
+          "bg-opacity-80",
+          "backdrop-blur-md"
+        );
+        navbar.classList.add("bg-transparent");
       }
 
       lastScrollY = currentScrollY;
@@ -113,4 +134,26 @@
 
     window.addEventListener("scroll", handleScroll);
   }
+
+  document
+    .getElementById("whatsapp-button-nav")
+    .addEventListener("click", () => {
+      const isMobile =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        );
+      const encodedMessage = encodeURIComponent(message);
+
+      let whatsappUrl;
+
+      if (isMobile) {
+        // Para dispositivos móviles (abre la app nativa si está instalada)
+        whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+      } else {
+        // Para escritorio (abre WhatsApp Web)
+        whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+      }
+
+      window.open(whatsappUrl, "_blank");
+    });
 </script>
