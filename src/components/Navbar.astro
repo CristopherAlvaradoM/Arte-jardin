@@ -28,6 +28,7 @@ const { phoneNumber, message } = Astro.props;
 
     <!-- Botón contacto (siempre visible) -->
     <button
+      data-whatsapp-btn
       id="whatsapp-button-nav"
       class="hidden md:inline-block bg-green_tertiary text-lg font-medium text-white px-5 py-2 rounded-full transition-transform duration-300 ease-in-out hover:scale-105"
     >
@@ -47,7 +48,9 @@ const { phoneNumber, message } = Astro.props;
   <!-- Menú móvil de pantalla completa -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 z-40 bg-green_primary text-white flex flex-col h-screen transform -translate-x-full transition-transform duration-300"
+    class="fixed inset-0 z-40 bg-green_primary text-white flex flex-col
+            h-dvh transform -translate-x-full transition-transform duration-300
+            overflow-y-auto overscroll-contain"
   >
     <!-- Header con logo y botón cerrar -->
     <div class="flex justify-between items-center p-4">
@@ -78,6 +81,7 @@ const { phoneNumber, message } = Astro.props;
     <!-- Botón al fondo -->
     <div class="px-6 mb-10">
       <button
+        data-whatsapp-btn
         id="whatsapp-button-nav"
         class="block w-full text-center bg-green_tertiary text-white px-4 py-3 rounded-full font-semibold text-xl"
       >
@@ -88,72 +92,97 @@ const { phoneNumber, message } = Astro.props;
 </nav>
 
 <script is:inline define:vars={{ phoneNumber, message }}>
-  if (typeof window !== "undefined") {
+  (() => {
+    if (typeof window === "undefined") return;
+
     const navbar = document.getElementById("main-navbar");
     const mobileMenu = document.getElementById("mobile-menu");
     const hamburgerBtn = document.getElementById("hamburger-btn");
     const closeBtn = document.getElementById("close-btn");
+    const whatsappBtns = document.querySelectorAll("[data-whatsapp-btn]");
 
-    // Mostrar/ocultar menú móvil
-    hamburgerBtn.addEventListener("click", () => {
-      mobileMenu.classList.remove("-translate-x-full");
-    });
-
-    closeBtn.addEventListener("click", () => {
-      mobileMenu.classList.add("-translate-x-full");
-    });
-
-    // Ocultar navbar al hacer scroll hacia abajo
+    let menuOpen = false;
     let lastScrollY = window.scrollY;
 
+    // Bloqueo de scroll del documento (iOS-friendly)
+    const lockScroll = () => {
+      const y = window.scrollY;
+      document.body.dataset.scrollY = String(y);
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${y}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
+    };
+    const unlockScroll = () => {
+      const y = parseInt(document.body.dataset.scrollY || "0", 10);
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      window.scrollTo(0, y);
+    };
+
+    const openMenu = () => {
+      mobileMenu?.classList.remove("-translate-x-full");
+      lockScroll();
+      menuOpen = true;
+    };
+    const closeMenu = () => {
+      mobileMenu?.classList.add("-translate-x-full");
+      unlockScroll();
+      menuOpen = false;
+    };
+
+    hamburgerBtn?.addEventListener("click", openMenu);
+    closeBtn?.addEventListener("click", closeMenu);
+
     const handleScroll = () => {
+      if (menuOpen) return; // no toques navbar con menú abierto
       const currentScrollY = window.scrollY;
 
-      // Oculta navbar si haces scroll hacia abajo
+      // Ocultar/mostrar navbar
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        navbar.classList.add("-translate-y-full");
+        navbar?.classList.add("-translate-y-full");
       } else {
-        navbar.classList.remove("-translate-y-full");
+        navbar?.classList.remove("-translate-y-full");
       }
 
-      // Cambia fondo si haces scroll
+      // Fondo
       if (currentScrollY > 10) {
-        navbar.classList.remove("bg-transparent");
-        navbar.classList.add("bg-black/30", "bg-opacity-80", "backdrop-blur-md");
+        navbar?.classList.remove("bg-transparent");
+        navbar?.classList.add(
+          "bg-black/30",
+          "bg-opacity-80",
+          "backdrop-blur-md"
+        );
       } else {
-        navbar.classList.remove(
+        navbar?.classList.remove(
           "bg-black",
           "bg-opacity-80",
           "backdrop-blur-md"
         );
-        navbar.classList.add("bg-transparent");
+        navbar?.classList.add("bg-transparent");
       }
 
       lastScrollY = currentScrollY;
     };
-
     window.addEventListener("scroll", handleScroll);
-  }
 
-  document
-    .getElementById("whatsapp-button-nav")
-    .addEventListener("click", () => {
-      const isMobile =
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        );
-      const encodedMessage = encodeURIComponent(message);
-
-      let whatsappUrl;
-
-      if (isMobile) {
-        // Para dispositivos móviles (abre la app nativa si está instalada)
-        whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
-      } else {
-        // Para escritorio (abre WhatsApp Web)
-        whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
-      }
-
-      window.open(whatsappUrl, "_blank");
+    // WhatsApp (ambos botones)
+    whatsappBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const isMobile =
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          );
+        const encodedMessage = encodeURIComponent(message);
+        const url = isMobile
+          ? `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`
+          : `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+        window.open(url, "_blank");
+      });
     });
+  })();
 </script>

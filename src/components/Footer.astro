@@ -1,9 +1,11 @@
 ---
+
 ---
 
 <footer class="bg-green_primary text-white py-12">
-  <div class="container mx-auto px-6 flex flex-col md:flex-row gap-24 items-center text-center md:text-left">
-    
+  <div
+    class="container mx-auto px-6 flex flex-col md:flex-row gap-24 items-center text-center md:text-left"
+  >
     <!-- Logo principal -->
     <div>
       <a href="/">
@@ -16,21 +18,56 @@
     </div>
 
     <!-- Enlaces -->
-    <div class="flex flex-col md:flex-row gap-12 text-sm items-center md:items-start">
-      <div class="space-y-2">
-        <h3 class="font-bold text-3xl font-secondary">Arte Jardín</h3>
+    <div class="space-y-2">
+      <!-- Título para escritorio -->
+      <h3 class="font-bold text-3xl font-secondary hidden md:block">
+        Arte Jardín
+      </h3>
+      <!-- Título para móvil -->
+      <h3 class="font-bold text-3xl font-secondary md:hidden">Arte Jardín</h3>
+
+      <!-- Lista combinada para móvil -->
+      <ul class="space-y-1 md:hidden">
+        <li>
+          <a href="/nosotros" class="hover:underline text-lg">Nosotros</a>
+        </li>
+        <li>
+          <a href="/servicios" class="hover:underline text-lg">Servicios</a>
+        </li>
+        <li>
+          <a href="/proyectos" class="hover:underline text-lg">Proyectos</a>
+        </li>
+        <li>
+          <a href="/clientes" class="hover:underline text-lg">Clientes</a>
+        </li>
+        <li><a href="/blog" class="hover:underline text-lg">Blog</a></li>
+        <li>
+          <a href="/contactanos" class="hover:underline text-lg">Contáctanos</a>
+        </li>
+      </ul>
+
+      <!-- Listas separadas para escritorio -->
+      <div class="hidden md:grid grid-cols-2 gap-12">
         <ul class="space-y-1">
-          <li><a href="/nosotros" class="hover:underline text-lg">Nosotros</a></li>
-          <li><a href="/servicios" class="hover:underline text-lg">Servicios</a></li>
-          <li><a href="/proyectos" class="hover:underline text-lg">Proyectos</a></li>
+          <li>
+            <a href="/nosotros" class="hover:underline text-lg">Nosotros</a>
+          </li>
+          <li>
+            <a href="/servicios" class="hover:underline text-lg">Servicios</a>
+          </li>
+          <li>
+            <a href="/proyectos" class="hover:underline text-lg">Proyectos</a>
+          </li>
         </ul>
-      </div>
-      <div class="space-y-2">
-        <h3 class="font-bold text-lg md:block md:invisible">.</h3> <!-- solo visible para alineación en desktop -->
         <ul class="space-y-1">
-          <li><a href="/clientes" class="hover:underline text-lg">Clientes</a></li>
+          <li>
+            <a href="/clientes" class="hover:underline text-lg">Clientes</a>
+          </li>
           <li><a href="/blog" class="hover:underline text-lg">Blog</a></li>
-          <li><a href="/contactanos" class="hover:underline text-lg">Contáctanos</a></li>
+          <li>
+            <a href="/contactanos" class="hover:underline text-lg"
+              >Contáctanos</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -55,6 +92,5 @@
         </a>
       </div>
     </div>
-    
   </div>
 </footer>
