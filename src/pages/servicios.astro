@@ -1,10 +1,59 @@
 ---
+import { getCollection } from "astro:content";
+import Navbar from "../components/Navbar.astro";
 import Layout from "../layouts/Layout.astro";
+import ServiciosCardLeft from "../components/ServiciosCardLeft.astro";
+import Contactanos from "../components/Contactanos.astro";
+import Footer from "../components/Footer.astro";
 
 
+const serviciosCardsInfo = await getCollection("servicios");
 ---
 
 <Layout>
-  <h1>Servicios</h1>
-  <p>Coming soon...</p>
+  <Navbar phoneNumber="523334420435" message="Hola, me gustaría más información sobre sus servicios." />
+
+  <header
+    class="relative py-40 flex flex-col items-center justify-center text-white"
+  >
+    <div class="absolute inset-0">
+      <img
+        src="/inicioServicio.png"
+        alt="Una roca"
+        class="w-full h-full object-cover brightness-50 pointer-events-none"
+      />
+    </div>
+
+    <div class="relative z-10 text-center px-4">
+      <h2 class="text-3xl md:text-6xl font-medium font-secondary mb-6 md:p-10">
+        Nuestros servicios
+      </h2>
+      <p class="text-lg md:text-3xl max-w-[1080px]">
+        Desde césped en rollo hasta jardines naturalistas y resilientes, diseñamos paisajes que 
+        fusionan biodiversidad, sostenibilidad y arte.
+      </p>
+    </div>
+  </header>
+
+  <main class="py-16 flex flex-col items-center gap-16 px-10">
+    {
+      serviciosCardsInfo.map((infoCard) => {
+        const { titulo, imagen, alt } = infoCard.data;
+        const { body: descripcion } = infoCard;
+        return (
+          <ServiciosCardLeft
+            titulo={titulo}
+            descripcion={descripcion}
+            imagen={imagen}
+            alt={alt}
+          />
+        );
+      })
+    }
+
+    <Contactanos 
+      phoneNumber="523334420435"
+      message="Hola, me gustaría más información sobre sus servicios."
+    />
+  </main>
 </Layout>

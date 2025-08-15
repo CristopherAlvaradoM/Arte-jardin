@@ -1,14 +1,39 @@
 ---
 import { getCollection } from "astro:content";
 import Navbar from "../components/Navbar.astro";
+import Contactanos from "../components/Contactanos.astro";
 import Layout from "../layouts/Layout.astro";
 import ServiciosCard from "../components/ServiciosCard.astro";
+import Footer from "../components/Footer.astro";
+import WhatsappButton from "../components/WhatsappButton.astro";
 
-const serviciosCardsInfo = await getCollection("serviciosCards");
+const ordenTitulos = [
+  "Venta e instalación de pasto en rollo",
+  "Paisajismo Resiliente",
+  "Integración artistica",
+  "Mantenimiento de áreas verdes",
+  "Diseño y construcción de jardines para polinizadores",
+  "Diseño y construcción de jardines naturalistas",
+];
+
+const serviciosCardsInfo = await getCollection("servicios");
+serviciosCardsInfo.sort((a, b) => {
+  return Number(a.data.titulo) - Number(b.data.titulo);
+});
+
+const serviciosCardsOrdenados = serviciosCardsInfo.sort((a, b) => {
+  const tituloA = a.data.titulo;
+  const tituloB = b.data.titulo;
+
+  return ordenTitulos.indexOf(tituloA) - ordenTitulos.indexOf(tituloB);
+});
 ---
 
 <Layout>
-  <Navbar />
+  <Navbar
+    phoneNumber="523334420435"
+    message="Hola, me gustaría más información sobre sus servicios."
+  />
 
   <header
     class="relative h-screen flex flex-col items-center justify-center text-white"
@@ -40,7 +65,7 @@ const serviciosCardsInfo = await getCollection("serviciosCards");
         class="md:w-1/2 text-2xl flex flex-col gap-10 font-medium text-center md:text-left"
       >
         <h2
-          class="text-5xl font-medium text-green-900 font-secondary md:self-start w-full"
+          class="text-5xl font-medium text-green_primary font-secondary md:self-start w-full"
         >
           ¿Quiénes somos?
         </h2>
@@ -48,8 +73,14 @@ const serviciosCardsInfo = await getCollection("serviciosCards");
           Transformamos espacios en jardines artísticos y sostenibles que
           celebran la biodiversidad. En Arte Jardín fusionamos paisajismo,
           ecología y diseño para crear entornos únicos que respetan la
-          naturaleza y reflejan tu personalidad. Descubre cómo podemos
-          transformar tu espacio.
+          naturaleza y reflejan tu personalidad.
+        </p>
+        <p class="text-gray-700 mt-4">
+          Creemos que cada jardin debe ser esteticamente inspirador,
+          ecologicamente responsable y funcionalmente perfecto. Diseñamos
+          espacios donde la arquitectura dialoga con la naturaleza, creando
+          armonia en quienes los habitan y dando origen a ecosistemas que
+          perduran en el tiempo.
         </p>
       </div>
       <!-- Contenedor de imagen -->
@@ -61,25 +92,238 @@ const serviciosCardsInfo = await getCollection("serviciosCards");
         />
       </div>
     </section>
-    <hr class="border-t-2 border-black my-4 mx-10" />
-    <h2 class="font-secondary font-medium text-green-900 text-5xl self-center place-self-center my-10">Nuestros servicios</h2>
-    <p class="font-normal text-xl place-self-center self-center text-center pb-10 mx-24">Cada jardín es diseñado considerando las condiciones específicas del sitio y las preferencias estéticas del cliente,
-      creando espacios verdes únicos que celebran la belleza.</p>
-    <ul class="flex flex-wrap justify-center gap-x-14 gap-y-14">
-      {
-        serviciosCardsInfo.map((infoCard) => {
-          const { titulo, imagen, alt } = infoCard.data;
-          const { body: descripcion } = infoCard;
-          return (
-            <ServiciosCard
-              titulo={titulo}
-              descripcion={descripcion}
-              imagen={imagen}
-              alt={alt}
+    <section class="pb-10">
+      <hr class="border-t-2 border-black my-4 mx-10" />
+      <h2
+        class="font-secondary font-medium text-green_primary text-5xl self-center place-self-center my-10"
+      >
+        Nuestros servicios
+      </h2>
+      <p
+        class="text-2xl font-medium text-gray-700 place-self-center self-center text-center pb-10 mx-24"
+      >
+        Diseñamos jardines que se adaptan a las condiciones especificas de tu
+        espacio y tus preferencias esteticas.
+      </p>
+      <ul class="flex flex-wrap justify-center gap-x-14 gap-y-14">
+        {
+          serviciosCardsOrdenados.map((infoCard) => {
+            const { titulo, imagen, alt } = infoCard.data;
+            const { body: descripcion } = infoCard;
+
+            return (
+              <ServiciosCard
+                titulo={titulo}
+                descripcion={descripcion}
+                imagen={imagen}
+                alt={alt}
+              />
+            );
+          })
+        }
+      </ul>
+    </section>
+    <section>
+      <hr class="border-t-2 border-black my-4 mx-10" />
+      <h2
+        class="font-secondary font-medium text-green_primary text-5xl self-center place-self-center my-10"
+      >
+        Proyectos
+      </h2>
+      <p
+        class="text-2xl font-medium text-gray-700 place-self-center self-center text-center pb-10 mx-24"
+      >
+        Explora nuestra galería de jardines donde el arte y la naturaleza crean
+        espacios extraordinarios.
+      </p>
+      <ul class="flex flex-wrap justify-center gap-x-14 gap-y-14">
+        <li class="group">
+          <a href="/proyecto/1">
+          <div class="flex flex-col">
+            <img
+              src="nosotros1.png"
+              alt=""
+              class="w-[640px] h-[440px] object-cover"
             />
-          );
-        })
-      }
-    </ul>
+            <div class="flex flex-row items-center gap-5 mt-2">
+              <h3
+                class="text-3xl font-medium font-secondary text-green_tertiary"
+              >
+                Nombre del proyecto
+              </h3>
+              <img
+                src="arrow-right.png"
+                alt="Siguiente"
+                class="transition-transform duration-300 ease-in-out group-hover:translate-x-2"
+              />
+            </div>
+          </div>
+          </a>
+        </li>
+
+         <li class="group">
+          <a href="/proyecto/1">
+          <div class="flex flex-col">
+            <img
+              src="nosotros1.png"
+              alt=""
+              class="w-[640px] h-[440px] object-cover"
+            />
+            <div class="flex flex-row items-center gap-5 mt-2">
+              <h3
+                class="text-3xl font-medium font-secondary  
+              >
+                Nombre del proyecto
+              </h3>
+              <img
+                src="arrow-right.png"
+                alt="Siguiente"
+                class="transition-transform duration-300 ease-in-out group-hover:translate-x-2"
+              />
+            </div>
+          </div>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <section class="py-16 bg-white">
+      <hr class="border-t-2 border-black my-4 mx-10" />
+      <div class="container mx-auto px-6 my-10">
+        <h2
+          class="text-5xl font-medium font-secondary text-green_primary text-center mb-4"
+        >
+          Testimonios
+        </h2>
+        <p
+          class="text-2xl font-medium text-gray-700 place-self-center self-center text-center pb-10 mx-24"
+        >
+          Conoce las experiencias de nuestros clientes que han visto sus
+          espacios transformarse en jardines que combinan belleza, funcionalidad
+          y conciencia ambiental.
+        </p>
+
+        <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+          <!-- Testimonio -->
+          <div class="bg-white_primary p-6 rounded-lg shadow-sm">
+            <p class="text-gray-800 mb-4">
+              "¡Increíble trabajo! Contraté a Arte Jardín para transformar mi
+              jardín y quedé maravillado con los resultados. Desde el diseño
+              inicial hasta la ejecución, todo fue impecable. ¡Recomiendo sus
+              servicios al 100%!"
+            </p>
+            <div
+              class="flex items-center gap-2 font-semibold text-green_tertiary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 md:w-6 md:h-6 align-text-bottom"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
+                ></path>
+              </svg>
+              María Guadalupe Gonzales María Guadalupe Gonzales
+            </div>
+          </div>
+
+          <div class="bg-white_primary p-6 rounded-lg shadow-sm">
+            <p class="text-gray-800 mb-4">
+              "¡Increíble trabajo! Contraté a Arte Jardín para transformar mi
+              jardín y quedé maravillado con los resultados. Desde el diseño
+              inicial hasta la ejecución, todo fue impecable. ¡Recomiendo sus
+              servicios al 100%!"
+            </p>
+            <div
+              class="flex items-center gap-2 font-semibold text-green_tertiary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 md:w-6 md:h-6 align-text-bottom"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
+                ></path>
+              </svg>
+              María Guadalupe Gonzales María Guadalupe Gonzales
+            </div>
+          </div>
+          <div class="bg-white_primary p-6 rounded-lg shadow-sm">
+            <p class="text-gray-800 mb-4">
+              "¡Increíble trabajo! Contraté a Arte Jardín para transformar mi
+              jardín y quedé maravillado con los resultados. Desde el diseño
+              inicial hasta la ejecución, todo fue impecable. ¡Recomiendo sus
+              servicios al 100%!"
+            </p>
+            <div
+              class="flex items-center gap-2 font-semibold text-green_tertiary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 md:w-6 md:h-6 align-text-bottom"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
+                ></path>
+              </svg>
+              María Guadalupe Gonzales María Guadalupe Gonzales
+            </div>
+          </div>
+          <div class="bg-white_primary p-6 rounded-lg shadow-sm">
+            <p class="text-gray-800 mb-4">
+              "¡Increíble trabajo! Contraté a Arte Jardín para transformar mi
+              jardín y quedé maravillado con los resultados. Desde el diseño
+              inicial hasta la ejecución, todo fue impecable. ¡Recomiendo sus
+              servicios al 100%!"
+            </p>
+            <div
+              class="flex items-center gap-2 font-semibold text-green_tertiary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 md:w-6 md:h-6 align-text-bottom"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
+                ></path>
+              </svg>
+              María Guadalupe Gonzales María Guadalupe Gonzales
+            </div>
+          </div>
+
+          <!-- Puedes seguir duplicando -->
+        </div>
+      </div>
+    </section>
+    <section class="px-6 md:px-10 py-8 md:py-16">
+      <Contactanos
+        phoneNumber="523334420435"
+        message="Hola, me gustaría más información sobre sus servicios."
+      />
+    </section>
   </main>
+  <Footer />
 </Layout>
