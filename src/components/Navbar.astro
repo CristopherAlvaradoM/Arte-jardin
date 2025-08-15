@@ -87,7 +87,7 @@ const { phoneNumber, message } = Astro.props;
   </div>
 </nav>
 
-<script is:inline>
+<script is:inline define:vars={{ phoneNumber, message }}>
   if (typeof window !== "undefined") {
     const navbar = document.getElementById("main-navbar");
     const mobileMenu = document.getElementById("mobile-menu");
